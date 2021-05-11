@@ -43,13 +43,15 @@
 	$: recommendations = list.filter(name => name.toLowerCase().includes(searchterm.toLowerCase()));
 
 	function enter(){
-		if(recommendations.length > 0){
-			let active = recommendations[0];
-			let url = urls[active];
-			window.open(cleanurl(url));
-		}
-		else{
-			window.open(cleanurl(searchterm));
+		if searchterm.length > 0{ //only open a window if something has been searched
+			if(recommendations.length > 0){
+				let active = recommendations[0];
+				let url = urls[active];
+				window.open(cleanurl(url));
+			}
+			else{
+				window.open(cleanurl(searchterm));
+			}
 		}
 	}
 </script>
