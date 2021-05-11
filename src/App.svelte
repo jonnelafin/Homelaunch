@@ -7,6 +7,8 @@
 
 <script>
 	import Settings from "./Settings.svelte";
+	import SearchResult from "./SearchResult.svelte";
+	import { cleanurl, getRoot } from "./ops.js";
 	let settings_visible = false;
 	let settings_display = "none";
 	let settings = {};
@@ -30,6 +32,23 @@
 		} else {
 			greeting = "Good night,";
 		}
+	let list = ["Youtube", "Google Classroom", "koulus.fi", "Rickroll"];
+	let urls = {
+		"Youtube" : "youtube.com",
+		"Google Classroom" : "classroom.google.com",
+		"koulus.fi" : "koulus.fi",
+		"Rickroll" : "https://www.youtube.com/embed/dQw4w9WgXcQ"
+	}
+	let searchterm = "";
+	$: recommendations = list.filter(name => name.toLowerCase().includes(searchterm.toLowerCase()));
+
+	function enter(){
+		if(recommendations.length > 0){
+			let active = recommendations[0];
+			let url = urls[active];
+			window.open(cleanurl(url));
+		}
+	}
 </script>
 
 <div class="content" style="display:{settings_display}; background: black; padding: 0; margin: 0;">
@@ -40,7 +59,25 @@
 	<div class="content">
 		<h1> {greeting} {settings.name} </h1>
 		<h1> The time is {time} </h1>
-		<input type="text" id="query" name="query" placeholder="Type to search" autofocus><br>
+		<input on:change={enter} bind:value={searchterm} type="text" id="query" name="query" placeholder="Type to search" list="recommend" autocomplete="off" autofocus><br>
+
+		<hr />
+		
+		<datalist id="recommend">
+			{#if false}
+			{#each list as o}
+				<option>{o}</option>
+			{/each}
+			{#each urls as o}
+				<option>{o}</option>
+			{/each}
+			{/if}
+		</datalist>
+		<grid>
+			{#each recommendations as c, i(c)}
+				<SearchResult selected={i===0&&searchterm.length>0}  name={c} url={urls[c]} image={getRoot(urls[c])}/favicon.ico />
+			{/each}
+		</grid>
 	</div>
 </main>
 
@@ -74,8 +111,18 @@
     	padding-right: 1em;
     	transition: outline .1s;
 	}
-	#query:focus, query:focus{
+	#query:focus, #query:focus{
 	    outline: .24em solid gray;
+	}
+	hr{
+		margin-bottom: 1em;
+	}
+	grid{
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+		gap: 10px;
+		grid-auto-flow: dense;
+		place-self: center;
 	}
 	h1{
 		
