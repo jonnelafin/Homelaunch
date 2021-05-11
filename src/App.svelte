@@ -48,6 +48,9 @@
 			let url = urls[active];
 			window.open(cleanurl(url));
 		}
+		else{
+			window.open(cleanurl(searchterm));
+		}
 	}
 </script>
 
