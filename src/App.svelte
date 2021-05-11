@@ -43,7 +43,7 @@
 	$: recommendations = list.filter(name => name.toLowerCase().includes(searchterm.toLowerCase()));
 
 	function enter(){
-		if searchterm.length > 0{ //only open a window if something has been searched
+		if(searchterm.length > 0){ //only open a window if something has been searched
 			if(recommendations.length > 0){
 				let active = recommendations[0];
 				let url = urls[active];
