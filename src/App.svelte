@@ -40,7 +40,7 @@
 	<div class="content">
 		<h1> {greeting} {settings.name} </h1>
 		<h1> The time is {time} </h1>
-		<input type="text" id="query" name="query" autofocus><br>
+		<input type="text" id="query" name="query" placeholder="Type to search" autofocus><br>
 	</div>
 </main>
 
