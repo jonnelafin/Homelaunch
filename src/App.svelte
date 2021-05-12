@@ -7,14 +7,19 @@
 
 <script>
 	import Settings from "./Settings.svelte";
+	import Creator from "./Creator.svelte";
 	import SearchResult from "./SearchResult.svelte";
 	import { cleanurl, getRoot } from "./ops.js";
 	let settings_visible = false;
-	let settings_display = "none";
+	$: settings_display = settings_visible?'inherit':'none';
+	let creator_visible = false;
+	$: creator_display = creator_visible?'inherit':'none';
 	let settings = {};
 	function toggle_settings(){
 		settings_visible = !settings_visible;
-		settings_display = settings_visible?'inherit':'none';
+	}
+	function toggle_creator(){
+		creator_visible = !creator_visible;
 	}
 	let date = new Date();
 	$: time = date.toLocaleTimeString().replaceAll(".", ":");
@@ -52,12 +57,16 @@
 			else{
 				window.open(cleanurl(searchterm));
 			}
+			searchterm = "";
 		}
 	}
 </script>
 
 <div class="content" style="display:{settings_display}; background: black; padding: 0; margin: 0;">
-<Settings bind:settings={settings} />
+	<Settings bind:settings={settings} />
+</div>
+<div class="content" style="display:{creator_display}; background: black; padding: 0; margin: 0;">
+	<Creator />
 </div>
 <main style="--bg-start: {settings.background_gradient_start};--bg-end: {settings.background_gradient_end};--bg-rot: {settings.background_rot}deg;--bg-handle1: {settings.background_handle1}%;--bg-handle2: {settings.background_handle2}%;">
 	<p class="logo"> Homelaunch <button on:click={toggle_settings} class="settingsbtn"> Settings </button> </p>
@@ -82,7 +91,7 @@
 			{#each recommendations as c, i(c)}
 				<SearchResult selected={i===0&&searchterm.length>0}  name={c} url={urls[c]} image={getRoot(urls[c])}/favicon.ico />
 			{/each}
-			<button class="create"> + </button>
+			<button class="create" on:click={toggle_creator}> <p class="createp" style="transform:rotate({creator_visible?'45':'0'}deg)">+</p> </button>
 		</grid>
 	</div>
 </main>
@@ -136,9 +145,17 @@
 		}
 	}
 	.create{
-		background: rgba(255, 255, 255, 0.5);
+		background: rgba(255, 255, 255, 0.2);
 		padding: 1em;
-		border: 1px solid gray;
+		border: 1px dashed gray;
+		font-size: 1.1em;
+		max-width: 4em;
+		max-height: 4em;
+	}
+	.createp{
+		padding: 0;
+		margin: 0;
+		transition: transform 1s;
 	}
 	h1{
 		
