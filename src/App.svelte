@@ -64,7 +64,7 @@
 		}
 	}
 </script>
-
+<svelte:body style="--bg-end={settings.background_gradient_end}" />
 <div class="content" style="display:{settings_display}; background: black; padding: 0; margin: 0;">
 	<Settings bind:settings={settings} />
 </div>
@@ -89,9 +89,9 @@
 		</datalist>
 		<grid>
 			{#each recommendations as c, i(c)}
-				<SearchResult bind:settings={settings} selected={i===0&&searchterm.length>0}  name={c} url={settings.urls[c]} image={getRoot(settings.urls[c])}/favicon.ico />
+				<SearchResult bind:settings={settings} selected={i===0&&searchterm.length>0}  name={c} url={settings.urls[c]} image={getRoot(settings.urls[c])} />
 			{/each}
-			<button class="create" on:click={toggle_creator}> <p class="createp" style="transform:rotate({creator_visible?'45':'0'}deg)">+</p> </button>
+			<button class="create" on:click={toggle_creator} style="width: {creator_visible?'100%':'4em'}"> <p class="createp" style="transform:rotate({creator_visible?'45':'0'}deg)">+</p> </button>
 			<div class="content" style="display:{creator_display}; background: rgba(0,0,0,0); padding: 0; margin: 0;">
 				<Creator bind:settings={settings} />
 			</div>
@@ -104,6 +104,7 @@
 		margin: 0;
 		padding: 0; 
 		height: 100%;
+		background: var(--bg-end);
 	}
 	main {
 		height: 100%;
@@ -147,8 +148,13 @@
 		padding: 1em;
 		border: 1px dashed #DDDDDD;
 		font-size: 1.1em;
-		max-width: 4em;
 		max-height: 4em;
+		filter: opacity(50%);
+		transition: width .5s, filter .5s;
+	}
+	.create:hover{
+		/*width: 100%;*/
+		filter: opacity(100%);
 	}
 	.createp{
 		padding: 0;

@@ -20,7 +20,7 @@ function open(){
 
 <span class="a" style="--outline:{outline};">
 	<div>
-		<img src={image} on:click={open} />
+		<img src="{image}/favicon.ico" data-failover="{image}/favicon.png" on:click={open} />
 		<p href="{cleanurl(url)}" on:click={open}>{name}</p>
 		<button on:click={remove}>
 			✖
