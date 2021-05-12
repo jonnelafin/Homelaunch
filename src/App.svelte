@@ -139,15 +139,10 @@
 		grid-auto-flow: dense;
 		place-self: center;
 	}
-	@media (max-width: 600px){
-		grid{
-			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		}
-	}
 	.create{
-		background: rgba(255, 255, 255, 0.2);
+		background: rgba(255, 255, 255, 0.35);
 		padding: 1em;
-		border: 1px dashed gray;
+		border: 1px dashed #DDDDDD;
 		font-size: 1.1em;
 		max-width: 4em;
 		max-height: 4em;
@@ -155,7 +150,16 @@
 	.createp{
 		padding: 0;
 		margin: 0;
-		transition: transform 1s;
+		transition: transform .5s;
+	}
+	@media (max-width: 600px){
+		grid{
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		}
+		.create{
+			max-width: inherit;
+			max-height: inherit;
+		}
 	}
 	h1{
 		
