@@ -14,7 +14,10 @@
 	$: settings_display = settings_visible?'inherit':'none';
 	let creator_visible = false;
 	$: creator_display = creator_visible?'inherit':'none';
-	let settings = {};
+	let settings = {
+		"list" : [],
+		"urls" : {}
+	};
 	function toggle_settings(){
 		settings_visible = !settings_visible;
 	}
@@ -37,21 +40,21 @@
 		} else {
 			greeting = "Good night,";
 		}
-	let list = ["Youtube", "Google Classroom", "koulus.fi", "Rickroll"];
-	let urls = {
+//	let list = ["Youtube", "Google Classroom", "koulus.fi", "Rickroll"];
+/*	let urls = {
 		"Youtube" : "youtube.com",
 		"Google Classroom" : "classroom.google.com",
 		"koulus.fi" : "koulus.fi",
 		"Rickroll" : "https://www.youtube.com/embed/dQw4w9WgXcQ"
-	}
+	}*/
 	let searchterm = "";
-	$: recommendations = list.filter(name => name.toLowerCase().includes(searchterm.toLowerCase()));
+	$: recommendations = settings.list.filter(name => name.toLowerCase().includes(searchterm.toLowerCase()));
 
 	function enter(){
 		if(searchterm.length > 0){ //only open a window if something has been searched
 			if(recommendations.length > 0){
 				let active = recommendations[0];
-				let url = urls[active];
+				let url = settings.urls[active];
 				window.open(cleanurl(url));
 			}
 			else{
@@ -65,9 +68,6 @@
 <div class="content" style="display:{settings_display}; background: black; padding: 0; margin: 0;">
 	<Settings bind:settings={settings} />
 </div>
-<div class="content" style="display:{creator_display}; background: black; padding: 0; margin: 0;">
-	<Creator />
-</div>
 <main style="--bg-start: {settings.background_gradient_start};--bg-end: {settings.background_gradient_end};--bg-rot: {settings.background_rot}deg;--bg-handle1: {settings.background_handle1}%;--bg-handle2: {settings.background_handle2}%;">
 	<p class="logo"> Homelaunch <button on:click={toggle_settings} class="settingsbtn"> Settings </button> </p>
 	<div class="content">
@@ -79,19 +79,22 @@
 		
 		<datalist id="recommend">
 			{#if false}
-			{#each list as o}
+			{#each settings.list as o}
 				<option>{o}</option>
 			{/each}
-			{#each urls as o}
+			{#each settings.urls as o}
 				<option>{o}</option>
 			{/each}
 			{/if}
 		</datalist>
 		<grid>
 			{#each recommendations as c, i(c)}
-				<SearchResult selected={i===0&&searchterm.length>0}  name={c} url={urls[c]} image={getRoot(urls[c])}/favicon.ico />
+				<SearchResult bind:settings={settings} selected={i===0&&searchterm.length>0}  name={c} url={settings.urls[c]} image={getRoot(settings.urls[c])}/favicon.ico />
 			{/each}
 			<button class="create" on:click={toggle_creator}> <p class="createp" style="transform:rotate({creator_visible?'45':'0'}deg)">+</p> </button>
+			<div class="content" style="display:{creator_display}; background: rgba(0,0,0,0); padding: 0; margin: 0;">
+				<Creator bind:settings={settings} />
+			</div>
 		</grid>
 	</div>
 </main>
@@ -140,7 +143,7 @@
 		place-self: center;
 	}
 	.create{
-		background: rgba(255, 255, 255, 0.35);
+		background: rgba(255, 255, 255, 0.45);
 		padding: 1em;
 		border: 1px dashed #DDDDDD;
 		font-size: 1.1em;

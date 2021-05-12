@@ -13,7 +13,14 @@
 		"background_gradient_end" : background_gradient_end,
 		"background_rot" : background_rot,
 		"background_handle1" : background_handle1,
-		"background_handle2" : background_handle2
+		"background_handle2" : background_handle2,
+		"list" : ["Youtube", "Google Classroom", "koulus.fi", "Rickroll"],
+		"urls" : {
+				"Youtube" : "youtube.com",
+				"Google Classroom" : "classroom.google.com",
+				"koulus.fi" : "koulus.fi",
+				"Rickroll" : "https://www.youtube.com/embed/dQw4w9WgXcQ"
+			}
 	}
 	const stored = localStorage.getItem('settings');
 	let error = "";
