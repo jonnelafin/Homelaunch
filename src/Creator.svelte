@@ -22,8 +22,16 @@
 <main style="--bg-start: {settings.background_gradient_start};--bg-end: {settings.background_gradient_end};--bg-rot: {settings.background_rot}deg;--bg-handle1: {settings.background_handle1}%;--bg-handle2: {settings.background_handle2}%;">
 	<h2> Add a card </h2>
 	<div class="go">
-		<label for="name"> Name: <input bind:value={name} type="text" id="name"> </label>
-		<label for="url"> Url: <input bind:value={url} type="url" id="name"> </label>
+		<label for="name"> 
+			<p>Name: </p>
+			<input bind:value={name} type="text" id="name"> 
+		</label>
+		<br />
+		<label for="url"> 
+			<p>Url: </p>
+			<input bind:value={url} type="url" id="name"> 
+		</label>
+		<br />
 		<button on:click={add}>Add</button>
 	</div>
 </main>
@@ -41,5 +49,18 @@
 		max-width: 50%;*/
 		margin: auto;
 		padding: 1em;
+	}
+	p{
+		float: left;
+	}
+	input{
+		float: right;
+		width: 85%;
+	}
+	br{
+		clear: both;
+	}
+	button{
+		width: 100%;
 	}
 </style>
