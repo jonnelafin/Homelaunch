@@ -82,6 +82,7 @@
 			{#each recommendations as c, i(c)}
 				<SearchResult selected={i===0&&searchterm.length>0}  name={c} url={urls[c]} image={getRoot(urls[c])}/favicon.ico />
 			{/each}
+			<button class="create"> + </button>
 		</grid>
 	</div>
 </main>
@@ -128,6 +129,16 @@
 		gap: 10px;
 		grid-auto-flow: dense;
 		place-self: center;
+	}
+	@media (max-width: 600px){
+		grid{
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		}
+	}
+	.create{
+		background: rgba(255, 255, 255, 0.5);
+		padding: 1em;
+		border: 1px solid gray;
 	}
 	h1{
 		
