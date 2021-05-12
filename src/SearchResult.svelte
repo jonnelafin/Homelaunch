@@ -71,8 +71,11 @@ function fix(){
 		float: right;
 		margin: 0;
 		padding: .25em;
+		filter: opacity(25%);
+		transition: filter .25s, background .25s;
 	}
 	button:hover{
-		background: rgba(0,0,0,0.2);
+		background: rgba(0,0,0,0.1);
+		filter: opacity(100%);
 	}
 </style>
