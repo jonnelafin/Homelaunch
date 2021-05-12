@@ -15,12 +15,19 @@ function remove(){
 function open(){
 	window.open(cleanurl(url));
 }
+let tried = false;
+function fix(){
+	if(!tried){
+		tried = true;
+		this.src=image+"/favicon.ico"
+	}
+}
 </script>
 
 
 <span class="a" style="--outline:{outline};">
 	<div>
-		<img src="{image}/favicon.ico" data-failover="{image}/favicon.png" on:click={open} />
+		<img src="{image}/favicon.png" on:error={fix} on:click={open} />
 		<p href="{cleanurl(url)}" on:click={open}>{name}</p>
 		<button on:click={remove}>
 			✖
