@@ -6,6 +6,8 @@
 </svelte:head>
 
 <script>
+	import { fade } from 'svelte/transition';
+	let visible = false;
 	import Settings from "./Settings.svelte";
 	import Creator from "./Creator.svelte";
 	import SearchResult from "./SearchResult.svelte";
@@ -67,7 +69,7 @@
 <div class="content" style="display:{settings_display}; background: black; padding: 0; margin: 0;">
 	<Settings bind:settings={settings} />
 </div>
-<main style="--bg-start: {settings.background_gradient_start};--bg-end: {settings.background_gradient_end};--bg-rot: {settings.background_rot}deg;--bg-handle1: {settings.background_handle1}%;--bg-handle2: {settings.background_handle2}%;">
+<main transition:fade style="--bg-start: {settings.background_gradient_start};--bg-end: {settings.background_gradient_end};--bg-rot: {settings.background_rot}deg;--bg-handle1: {settings.background_handle1}%;--bg-handle2: {settings.background_handle2}%;">
 	<p class="logo"> Homelaunch <button on:click={toggle_settings} class="settingsbtn"> Settings </button> </p>
 	<div class="content">
 		<h1> {greeting} {settings.name} </h1>
@@ -97,7 +99,6 @@
 		</grid>
 	</div>
 </main>
-
 <style>
 	:global(body) {
 		margin: 0;
