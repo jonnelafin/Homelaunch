@@ -1,7 +1,7 @@
 <script>
 	let name = "Name Here";
 	let background_gradient_start = "#1c1b21";
-	let background_gradient_end = "#3A2856"; //Originally rgba(132,75,218,1)
+	let background_gradient_end = "#3A285600"; //Originally rgba(132,75,218,1)
 	let background_rot = "180";
 	let background_handle1 = "10";
 	let background_handle2 = "100";
@@ -67,8 +67,17 @@
 			<input type=range bind:value={settings.background_handle2} min=0 max=200 id="gradient-per2"> 
 		</label>
 		<br />
-		<label for="gradient-1"> Gradient start color <input type="color" id="gradient-1" bind:value={settings.background_gradient_start}></label>
-		<label for="gradient-2"> Gradient end color <input type="color" id="gradient-2" bind:value={settings.background_gradient_end}></label>
+		<label for="gradient-1"> Gradient start color 
+			<input type="color" id="gradient-1" bind:value={settings.background_gradient_start}>
+			<input type=text bind:value={settings.background_gradient_start}>
+		</label>
+		<label for="gradient-2"> Gradient end color 
+			<input type="color" id="gradient-2" bind:value={settings.background_gradient_end}>
+			<input type=text bind:value={settings.background_gradient_end}>
+		</label>
+		<label for="bg-img"> Background image url
+			<input type=text id="bg-img" bind:value={settings.background_img_url}>
+		</label>
 	</div>
 	<h3> {error} </h3>
 	<button on:click={save} > Save </button> <button on:click={showCode} > Show JSON </button> <button on:click={clear} > Reset </button>

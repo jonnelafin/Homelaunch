@@ -49,7 +49,6 @@
 	}*/
 	let searchterm = "";
 	$: recommendations = settings.list.filter(name => name.toLowerCase().includes(searchterm.toLowerCase()));
-
 	function enter(){
 		if(searchterm.length > 0){ //only open a window if something has been searched
 			if(recommendations.length > 0){
@@ -104,7 +103,8 @@
 		margin: 0;
 		padding: 0; 
 		height: 100%;
-		background: var(--bg-end);
+		background: url("https://invent.kde.org/plasma/breeze/-/raw/51840ad0686cf1182ce0ee1810864a5725412e1b/wallpapers/Next/contents/images/5120x2880.png");
+		background-size: cover;
 	}
 	main {
 		height: 100%;
