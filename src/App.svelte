@@ -7,7 +7,6 @@
 
 <script>
 	import { fade } from 'svelte/transition';
-	let visible = false;
 	import Settings from "./Settings.svelte";
 	import Creator from "./Creator.svelte";
 	import SearchResult from "./SearchResult.svelte";
