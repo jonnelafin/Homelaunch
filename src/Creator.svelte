@@ -18,11 +18,55 @@
 			url = "";
 		}
 	}
+	function apply(){
+		editTarget = undefined;
+	}
+	export let editTarget = undefined;
+	editTarget = undefined;
+	export let targetUrl = "";
+	let lastTarget = "";
+	let lastUrl = "";
+	$: editing = editTarget != undefined;
+	$: {
+		if(editing){
+			if(lastTarget !== ""){
+				let index = settings.list.indexOf(lastTarget);
+				settings.list[index] = editTarget;
+			}
+			if(lastUrl !== ""){
+				settings.urls[editTarget] = targetUrl;
+			}
+		}
+		if(editing){
+			lastTarget = editTarget;
+			lastUrl = targetUrl;
+		}
+		else{
+			lastTarget = "";
+			lastUrl = "";
+		}
+	}
 </script>
 
 
 <main style="--bg-start: {settings.background_gradient_start};--bg-end: {settings.background_gradient_end};--bg-rot: {settings.background_rot}deg;--bg-handle1: {settings.background_handle1}%;--bg-handle2: {settings.background_handle2}%;">
-	<h2> Add a card </h2>
+	<h2> {editing?"Editing \""+editTarget+"\"":"Add a card"}</h2>
+	{#if editing}
+	<div class="go">
+		<label for="name"> 
+			<p>Name: </p>
+			<input bind:value={editTarget} type="text" id="name" autofocus> 
+		</label>
+		<br />
+		<label for="url"> 
+			<p>Url: </p>
+			<input bind:value={targetUrl} type="url" id="name"> 
+		</label>
+		<br />
+		<button on:click={apply}>Apply</button>
+	</div>
+	{/if}
+	{#if !editing}
 	<div class="go">
 		<label for="name"> 
 			<p>Name: </p>
@@ -34,14 +78,17 @@
 			<input bind:value={url} type="url" id="name"> 
 		</label>
 		<br />
-		<button on:click={add}>Add</button>
+		<button on:click={apply}>Add</button>
 	</div>
+	{/if}
 </main>
+
 
 <style>
 	main{
 		color: white;
 		background: rgba(0,0,0,0);
+		transform: scaleX(1) scaleY(1) !important;
 	}
 	.go{
 		background: var(--bg-start);

@@ -16,7 +16,7 @@
 	let settings_visible = false;
 	$: settings_display = settings_visible?'inherit':'none';
 	let creator_visible = false;
-	$: creator_display = creator_visible?'inherit':'none';
+	$: creator_display = (creator_visible || editing)?'inherit':'none';
 	let settings = {
 		"list" : [],
 		"urls" : {}
@@ -43,13 +43,6 @@
 		} else {
 			greeting = "Good night,";
 		}
-//	let list = ["Youtube", "Google Classroom", "koulus.fi", "Rickroll"];
-/*	let urls = {
-		"Youtube" : "youtube.com",
-		"Google Classroom" : "classroom.google.com",
-		"koulus.fi" : "koulus.fi",
-		"Rickroll" : "https://www.youtube.com/embed/dQw4w9WgXcQ"
-	}*/
 	let searchterm = "";
 	$: recommendations = [...(new Set(settings.list.filter(name => name.toLowerCase().includes(searchterm.toLowerCase()))))];
 	function enter(){
@@ -64,6 +57,13 @@
 			}
 			searchterm = "";
 		}
+	}
+	//Creator stuff
+	let editTarget = undefined;
+	let targetUrl = "";
+	$: editing = editTarget != undefined;
+	$: {
+		console.log(editing);
 	}
 	//Css grid magic
 	let grid;
@@ -97,11 +97,11 @@
 		</datalist>
 		<grid bind:this={grid}>
 			{#each recommendations as c, i(c)}
-				<SearchResult bind:settings={settings} selected={i===0&&searchterm.length>0}  name={c} url={settings.urls[c]} image={getRoot(settings.urls[c])} />
+				<SearchResult bind:settings={settings} bind:editTarget={editTarget} bind:targetUrl={targetUrl} selected={i===0&&searchterm.length>0}  name={c} url={settings.urls[c]} image={getRoot(settings.urls[c])} />
 			{/each}
-			<button class="create" on:click={toggle_creator} style="width: {creator_visible?'100%':'4em'}"> <p class="createp" style="transform:rotate({creator_visible?'45':'0'}deg)">+</p> </button>
+			<button disabled={editing} class="create" on:click={toggle_creator} style="width: {creator_visible?'100%':'4em'}"> <p class="createp" style="transform:rotate({creator_visible?'45':'0'}deg)">+</p> </button>
 			<div class="content" style="display:{creator_display}; background: rgba(0,0,0,0); padding: 0; margin: 0;">
-				<Creator bind:settings={settings} />
+				<Creator bind:settings={settings} bind:editTarget={editTarget} bind:targetUrl={targetUrl} />
 			</div>
 		</grid>
 	</div>

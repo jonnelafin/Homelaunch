@@ -38,6 +38,11 @@
 		}
 	}
 	function save(){
+		for(let i in Object.keys(settings.urls)){ //try to clear the urls a bit
+			if(!(settings.list).includes(i)){
+				delete settings.urls[i];
+			}
+		}
 		localStorage.setItem('settings', JSON.stringify(settings));
 	}
 	let code = "";
