@@ -7,10 +7,12 @@
 
 <script>
 	import { fade } from 'svelte/transition';
+	import { onMount } from 'svelte';
 	import Settings from "./Settings.svelte";
 	import Creator from "./Creator.svelte";
 	import SearchResult from "./SearchResult.svelte";
 	import { cleanurl, getRoot } from "./ops.js";
+	import { wrapGrid } from 'animate-css-grid';
 	let settings_visible = false;
 	$: settings_display = settings_visible?'inherit':'none';
 	let creator_visible = false;
@@ -49,7 +51,7 @@
 		"Rickroll" : "https://www.youtube.com/embed/dQw4w9WgXcQ"
 	}*/
 	let searchterm = "";
-	$: recommendations = settings.list.filter(name => name.toLowerCase().includes(searchterm.toLowerCase()));
+	$: recommendations = [...(new Set(settings.list.filter(name => name.toLowerCase().includes(searchterm.toLowerCase()))))];
 	function enter(){
 		if(searchterm.length > 0){ //only open a window if something has been searched
 			if(recommendations.length > 0){
@@ -63,6 +65,12 @@
 			searchterm = "";
 		}
 	}
+	//Css grid magic
+	let grid;
+	onMount(async () => {
+		wrapGrid(grid);
+	});
+	
 </script>
 <svelte:body style="--bg-end={settings.background_gradient_end}" />
 <div class="content" style="display:{settings_display}; background: black; padding: 0; margin: 0;">
@@ -87,7 +95,7 @@
 			{/each}
 			{/if}
 		</datalist>
-		<grid>
+		<grid bind:this={grid}>
 			{#each recommendations as c, i(c)}
 				<SearchResult bind:settings={settings} selected={i===0&&searchterm.length>0}  name={c} url={settings.urls[c]} image={getRoot(settings.urls[c])} />
 			{/each}

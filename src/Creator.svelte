@@ -9,12 +9,14 @@
 		addCard(name, url);
 	}
 	function addCard(name, url){
-		settings.list.push(name);
-		settings.urls[name] = url;
-		settings = settings;
+		if(!(settings.list.includes(name))){
+			settings.list.push(name);
+			settings.urls[name] = url;
+			settings = settings;
 
-		name = "";
-		url = "";
+			name = "";
+			url = "";
+		}
 	}
 </script>
 
@@ -24,7 +26,7 @@
 	<div class="go">
 		<label for="name"> 
 			<p>Name: </p>
-			<input bind:value={name} type="text" id="name"> 
+			<input bind:value={name} type="text" id="name" autofocus> 
 		</label>
 		<br />
 		<label for="url"> 

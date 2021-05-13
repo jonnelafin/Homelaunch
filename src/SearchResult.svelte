@@ -1,4 +1,5 @@
 <script>
+import { slide } from 'svelte/transition';
 import { cleanurl } from "./ops.js";
 export let url = "https://www.youtube.com/embed/dQw4w9WgXcQ";
 export let name = "Rickroll";
@@ -25,7 +26,7 @@ function fix(){
 </script>
 
 
-<span class="a" style="--outline:{outline};">
+<span transition:slide class="a" style="--outline:{outline};">
 	<div>
 		<img src="{image}/favicon.png" on:error={fix} on:click={open} />
 		<p href="{cleanurl(url)}" on:click={open}>{name}</p>
