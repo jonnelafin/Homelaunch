@@ -51,7 +51,7 @@ $: editing = (editTarget === name);
 
 <span transition:slide class="a" style="--outline:{outline};--editing:{editing?'opacity(100%)':'opacity(25%)'};">
 	<div>
-		<img src="{image}/favicon.png" on:error={fix} on:click={open} />
+		<img src="{image}/favicon.png" alt="{name[0]}" on:error={fix} on:click={open} />
 		<p href="{cleanurl(url)}" on:click={open}>{name}</p>
 		<button on:click={remove}>
 			✖
@@ -88,7 +88,7 @@ $: editing = (editTarget === name);
 		margin: 0;
 		padding: .25em;
 		display: inline-block;
-		transform: translateY(-25%);
+		transform: translateY(-15%);
 		float: left;
 	}
 	button{

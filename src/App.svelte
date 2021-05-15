@@ -72,11 +72,12 @@
 	});
 	
 </script>
-<svelte:body style="--bg-end={settings.background_gradient_end}" />
+<svelte:body style="--bg-end:{settings.background_gradient_end};--bg-img:{settings.background_image};" />
 <div class="content" style="display:{settings_display}; background: black; padding: 0; margin: 0;">
 	<Settings bind:settings={settings} />
 </div>
-<main transition:fade style="--bg-start: {settings.background_gradient_start};--bg-end: {settings.background_gradient_end};--bg-rot: {settings.background_rot}deg;--bg-handle1: {settings.background_handle1}%;--bg-handle2: {settings.background_handle2}%;">
+<div class="bg" style="--bg-img:{settings.background_image};">
+<main transition:fade style="--bg-start: {settings.background_gradient_start};--bg-end: {settings.background_gradient_end};--bg-rot: {settings.background_rot}deg;--bg-handle1: {settings.background_handle1}%;--bg-handle2: {settings.background_handle2}%;--bg-img:{settings.background_image};">
 	<p class="logo"> Homelaunch <button on:click={toggle_settings} class="settingsbtn"> Settings </button> </p>
 	<div class="content">
 		<h1> {greeting} {settings.name} </h1>
@@ -106,17 +107,26 @@
 		</grid>
 	</div>
 </main>
+</div>
 <style>
 	:global(body) {
 		margin: 0;
 		padding: 0; 
 		height: 100%;
-		background: url("https://invent.kde.org/plasma/breeze/-/raw/51840ad0686cf1182ce0ee1810864a5725412e1b/wallpapers/Next/contents/images/5120x2880.png");
+		background: var(--bg-img)/*url("https://invent.kde.org/plasma/breeze/-/raw/51840ad0686cf1182ce0ee1810864a5725412e1b/wallpapers/Next/contents/images/5120x2880.png")*/;
+		background-size: cover;
+	}
+	.bg{
+		margin: 0;
+		padding: 0; 
+		height: 100%;
+		background: var(--bg-img)/*url("https://invent.kde.org/plasma/breeze/-/raw/51840ad0686cf1182ce0ee1810864a5725412e1b/wallpapers/Next/contents/images/5120x2880.png")*/;
 		background-size: cover;
 	}
 	main {
 		height: 100%;
 		background: rgb(0,0,0);
+		background: var(--bg-img);
 		background: linear-gradient(var(--bg-rot), var(--bg-start) var(--bg-handle1), var(--bg-end) var(--bg-handle2)); 
 		color: #FFFFFF;
 	}

@@ -14,13 +14,13 @@
 		"background_rot" : background_rot,
 		"background_handle1" : background_handle1,
 		"background_handle2" : background_handle2,
-		"list" : ["Youtube", "Google Classroom", "koulus.fi", "Rickroll"],
+		"list" : ["Homelaunch github page", "Rickroll", "JS: alert"],
 		"urls" : {
-				"Youtube" : "youtube.com",
-				"Google Classroom" : "classroom.google.com",
-				"koulus.fi" : "koulus.fi",
-				"Rickroll" : "https://www.youtube.com/embed/dQw4w9WgXcQ"
-			}
+				"Homelaunch github page" : "https://github.com/jonnelafin/Homelaunch",
+				"Rickroll" : "https://www.youtube.com/embed/dQw4w9WgXcQ",
+				"JS: alert" : "javascript:alert('Hello there.')"
+			},
+		"background_image" : "url(\"https://invent.kde.org/plasma/breeze/-/raw/51840ad0686cf1182ce0ee1810864a5725412e1b/wallpapers/Next/contents/images/5120x2880.png\")"
 	}
 	const stored = localStorage.getItem('settings');
 	let error = "";
@@ -80,8 +80,8 @@
 			<input type="color" id="gradient-2" bind:value={settings.background_gradient_end}>
 			<input type=text bind:value={settings.background_gradient_end}>
 		</label>
-		<label for="bg-img"> Background image url
-			<input type=text id="bg-img" bind:value={settings.background_img_url}>
+		<label for="bg-img"> Background image 
+			<input type=text id="bg-img" bind:value={settings.background_image}>
 		</label>
 	</div>
 	<h3> {error} </h3>
